@@ -1,0 +1,19 @@
+start: node
+node: ntype "{" knob* "}"
+ntype: CNAME
+
+knob: name (curve | value)
+name: CNAME
+value: ESCAPED_STRING | LITERAL | SIGNED_NUMBER | STRING
+
+curve: "{{" "curve" key* "}}"
+key: "x" x y
+x: SIGNED_NUMBER
+y: SIGNED_NUMBER
+
+LITERAL: "{" /./+ "}"
+STRING: /\S/+
+
+%import common (CNAME, ESCAPED_STRING, SH_COMMENT, SIGNED_NUMBER, WS)
+%ignore SH_COMMENT
+%ignore WS
